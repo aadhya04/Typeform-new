@@ -139,8 +139,10 @@ results pages.
 Backend routers are separated into forms, questions, public respondent
 flow, and responses.
 
-Project Structure
 
+## Project Structure
+
+```text
 Typeform-new/
 ├── backend/
 │   ├── app/
@@ -152,6 +154,7 @@ Typeform-new/
 │   │   └── routers/
 │   ├── requirements.txt
 │   └── ...
+│
 ├── frontend/
 │   ├── app/
 │   │   ├── page.tsx
@@ -161,6 +164,7 @@ Typeform-new/
 │   ├── components/
 │   ├── lib/
 │   └── package.json
+│
 └── README.md
 
 Database Schema
