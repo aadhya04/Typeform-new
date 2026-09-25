@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: #FF3D71;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-offwhite text-ink dark:bg-[#161616] dark:text-[#F2F2F2];
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* Typeform-style focus ring using the current form's accent color */
+.accent-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: white;
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+.btn-accent:hover { filter: brightness(1.08); }
+.btn-accent:active { transform: scale(0.98); }
+
+.underline-input {
+  border-bottom: 2px solid #D8D8D8;
+  transition: border-color 0.15s ease;
+}
+.underline-input:focus {
+  border-color: var(--accent);
+}
+
+@keyframes fade-slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-slide-up {
+  animation: fade-slide-up 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
