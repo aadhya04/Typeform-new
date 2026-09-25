@@ -534,11 +534,4 @@ It is not affiliated with or endorsed by Typeform.
 
 This is an assignment/demo project.
 
-```
 
-### One important thing
-
-After pasting it into GitHub, **don't change the README further** unless you notice an actual factual error. This version covers the assignment's required README items: setup, tech stack, architecture, database schema, API overview, and assumptions. :contentReference[oaicite:0]{index=0}
-
-Also, your current README correctly mentions **CSV export and partial-response tracking as additional functionality**, which matches what you've actually implemented. :contentReference[oaicite:1]{index=1}
-```
