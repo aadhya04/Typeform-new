@@ -1,149 +1,171 @@
-Formify --- Typeform Clone
+# Formify — Typeform Clone
 
-A functional Typeform-inspired form builder and response collection
-platform built for the SDE Fullstack assignment.
+A functional Typeform-style form builder and response collection app built for the SDE Fullstack assignment.
 
-Live Demo
+The project focuses on the main Typeform experience:
 
-Frontend: https://typeform-new.vercel.app/
+- Build forms
+- Add and arrange questions
+- Publish forms with a public link
+- Collect responses one question at a time
+- View results and statistics
 
-Example public form:
-https://typeform-new.vercel.app/f/event-registration
+## Live Demo
 
-Backend API: https://typeform-new.onrender.com
+- **Frontend:** https://typeform-new.vercel.app/
+- **Example Public Form:** https://typeform-new.vercel.app/f/event-registration
+- **Backend API:** https://typeform-new.onrender.com
+- **API Health:** https://typeform-new.onrender.com/api/health
+- **Swagger API Docs:** https://typeform-new.onrender.com/docs
+- **GitHub:** https://github.com/aadhya04/Typeform-new
 
-API health: https://typeform-new.onrender.com/api/health
+---
 
-Swagger API docs: https://typeform-new.onrender.com/docs
+## Tech Stack
 
-Tech Stack
+### Frontend
+- Next.js 14
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- @hello-pangea/dnd for drag and drop
 
-Frontend: Next.js 14, TypeScript, Tailwind CSS, Framer Motion,
-@hello-pangea/dnd
+### Backend
+- Python
+- FastAPI
+- SQLAlchemy
 
-Backend: Python, FastAPI, SQLAlchemy
+### Database
+- SQLite
 
-Database: SQLite
+### Deployment
+- Vercel for frontend
+- Render for backend
 
-Deployment: Vercel (frontend), Render (backend)
+---
 
-Features
+## Main Features
 
-Form Builder
+### 1. Form Builder
 
-Create forms with titles
+The builder allows the creator to:
 
-Add, edit, reorder with drag-and-drop, and delete questions
+- Create a form with a title
+- Add questions
+- Edit questions
+- Reorder questions using drag and drop
+- Delete questions
+- Mark questions as required
+- Add description/help text
+- See a live preview
+- Change the form theme
+- Use settings placeholders
 
-Live preview
+### Supported Question Types
 
-Required questions and description/help text
+- Short text
+- Long text
+- Multiple choice
+- Dropdown
+- Email
+- Number
+- Yes / No
+- Rating
 
-Theme customization
+### 2. Form Management
 
-Settings placeholders
+The dashboard supports:
 
-Question Types
+- View all forms
+- See draft/published status
+- See response count
+- Create a new form
+- Rename a form
+- Duplicate a form
+- Delete a form
+- Publish a form
+- Unpublish a form
+- Copy the public form link
 
-Short text
+Form and question changes are saved to the backend database.
 
-Long text
+### 3. Respondent Experience
 
-Multiple choice
+Published forms can be opened using a public link without login.
 
-Dropdown
+The respondent flow includes:
 
-Email
+- Welcome screen
+- One question at a time
+- Full-screen conversational layout
+- Smooth transitions
+- Progress indicator
+- Keyboard navigation
+- Required-field validation
+- Email validation
+- Number validation
+- Response saving
+- Thank-you screen after submission
 
-Number
+### 4. Results and Responses
 
-Yes / No
+The results page includes:
 
-Rating
+- Total responses
+- Completed responses
+- Partial responses
+- Completion rate
+- Question-level statistics
+- Response list
+- Individual response view
+- CSV export
 
-Form Management
+Partial responses are kept as `Partial` when a respondent starts a form but does not complete it. This is intentional and demonstrates partial-response tracking.
 
-List forms with draft/published status
+### 5. UI / UX
 
-Response counts
+The interface includes:
 
-Create, rename, duplicate, and delete
+- Typeform-inspired one-question-at-a-time experience
+- Clean form builder
+- Live preview
+- Modals
+- Toast notifications
+- Dark mode
+- Responsive layouts
+- Smooth animations
 
-Publish/unpublish
+---
 
-Copy public share links
+## Architecture
 
-Persistent form definitions
+The project uses a simple three-layer structure:
 
-Respondent Experience
-
-No login required
-
-One question at a time
-
-Full-screen conversational UI
-
-Smooth transitions
-
-Progress indicator
-
-Keyboard navigation
-
-Client and server validation
-
-Response submission
-
-Thank-you screen
-
-Results
-
-Response table
-
-Individual response view
-
-Question-level statistics
-
-Completion rate
-
-Partial-response tracking
-
-CSV export
-
-UX
-
-Toast notifications
-
-Modals
-
-Dark mode
-
-Responsive layouts
-
-Seeded sample forms and responses
-
-Architecture
-
+```text
 Next.js Frontend
-      |
-      | REST API
-      v
+       |
+       | REST API
+       v
 FastAPI Backend
-      |
-      | SQLAlchemy
-      v
+       |
+       | SQLAlchemy
+       v
 SQLite Database
+````
 
-Frontend routes include the dashboard, form builder, public form, and
-results pages.
+The frontend handles the user interface.
 
-Backend routers are separated into forms, questions, public respondent
-flow, and responses.
+The FastAPI backend handles form management, questions, public responses, validation, and results.
 
+SQLite stores forms, questions, responses, and answers.
+
+---
 
 ## Project Structure
 
 ```text
 Typeform-new/
+│
 ├── backend/
 │   ├── app/
 │   │   ├── main.py
@@ -152,8 +174,8 @@ Typeform-new/
 │   │   ├── models/
 │   │   ├── schemas/
 │   │   └── routers/
-│   ├── requirements.txt
-│   └── ...
+│   │
+│   └── requirements.txt
 │
 ├── frontend/
 │   ├── app/
@@ -161,201 +183,362 @@ Typeform-new/
 │   │   ├── builder/[formId]/page.tsx
 │   │   ├── f/[slug]/page.tsx
 │   │   └── forms/[formId]/responses/page.tsx
+│   │
 │   ├── components/
 │   ├── lib/
 │   └── package.json
 │
-└── README.md 
-
+├── .gitignore
+└── README.md
 ```
-Database Schema
 
-The database contains five main entities:
+---
 
-Creator --- default creator for the simplified no-auth
-implementation.
+## Database Schema
 
-Form --- title, status, share slug, theme, creator relationship,
-and timestamps.
+The application uses five main tables/models.
 
-Question --- form relationship, type, title, description,
-required flag, position, options, settings, and logic.
+### Creator
 
-Response --- respondent session, form relationship, completion
-state, and timestamps.
+Stores the default creator used by the simplified no-auth setup.
 
-Answer --- response relationship, question relationship, and
-stored value.
+### Form
 
-Relationship:
+Stores:
 
+* Form title
+* Draft/published status
+* Public share slug
+* Theme
+* Creator
+* Timestamps
+
+### Question
+
+Stores:
+
+* Question type
+* Question title
+* Description
+* Required status
+* Position/order
+* Options/settings
+
+### Response
+
+Stores:
+
+* Form
+* Respondent session
+* Completion status
+* Timestamps
+
+### Answer
+
+Stores:
+
+* Response
+* Question
+* Answer value
+
+### Relationships
+
+```text
 Creator 1 ─── N Form
 Form    1 ─── N Question
 Form    1 ─── N Response
 Response 1 ── N Answer
 Question 1 ── N Answer
+```
 
-API Overview
+---
 
-Forms
+## API Overview
 
-List forms
+### Forms
 
-Create/update/delete forms
+* List forms
+* Create forms
+* Update/rename forms
+* Delete forms
+* Duplicate forms
+* Publish/unpublish forms
 
-Duplicate forms
+### Questions
 
-Publish/unpublish forms
+* Create questions
+* Update questions
+* Delete questions
+* Reorder questions
 
-Questions
+### Public Forms
 
-Create/update/delete questions
+* Get a published form using its slug
+* Start a response
+* Submit answers
+* Complete a response
 
-Reorder questions
+### Responses
 
-Public
+* List responses
+* View an individual response
+* Get summary statistics
+* Export responses as CSV
 
-Fetch published forms by slug
+Swagger API documentation is available at:
 
-Start a response
+[https://typeform-new.onrender.com/docs](https://typeform-new.onrender.com/docs)
 
-Submit answers
+---
 
-Complete a response
+## Local Setup
 
-Responses
+### Requirements
 
-List responses
+Install:
 
-View individual responses
+* Node.js
+* npm
+* Python 3.13+
 
-Get summary statistics
+### 1. Clone the repository
 
-Export CSV
-
-FastAPI Swagger documentation is available at /docs.
-
-Local Setup
-
-Requirements
-
-Node.js
-
-Python 3.13+
-
-npm
-
-Backend
-
+```bash
 git clone https://github.com/aadhya04/Typeform-new.git
-cd Typeform-new/backend
+cd Typeform-new
+```
+
+### 2. Start the backend
+
+Open a terminal:
+
+```bash
+cd backend
 py -3.13 -m venv venv
+```
 
-Windows:
+#### Windows
 
-.env\Scriptsctivate
+```powershell
+.\venv\Scripts\activate
+```
+
+Install the Python packages:
+
+```bash
 pip install -r requirements.txt
+```
+
+Seed the database:
+
+```bash
 python -m app.seed
+```
+
+Start FastAPI:
+
+```bash
 uvicorn app.main:app --reload --port 8000
+```
 
 Backend:
 
+```text
 http://localhost:8000
+```
 
 Swagger:
 
+```text
 http://localhost:8000/docs
+```
 
-Frontend
+### 3. Start the frontend
 
 Open another terminal:
 
-cd Typeform-new/frontend
+```bash
+cd frontend
 npm install
+```
 
-Create frontend/.env.local:
+Create:
 
+```text
+frontend/.env.local
+```
+
+Add:
+
+```env
 NEXT_PUBLIC_API_URL=http://localhost:8000
+```
 
 Start Next.js:
 
+```bash
 npm run dev
+```
 
 Frontend:
 
+```text
 http://localhost:3000
+```
 
-Seed Data
+---
 
-The seed script creates a default creator and demonstration data:
+## Seed Data
 
-Customer Feedback Survey --- published
+The seed script creates sample data so the application can be tested immediately.
 
-Event Registration --- published
+It includes:
 
-Product Idea Brainstorm --- draft
+### Customer Feedback Survey
 
-The published forms contain mixed question types and sample responses.
+Published form with different question types and sample responses.
 
-Deployment
+### Event Registration
 
-Vercel
+Published form with different question types and sample responses.
 
-The frontend directory is deployed as a Next.js application.
+### Product Idea Brainstorm
 
-Production environment variable:
+Draft form that can be edited and published from the dashboard.
 
+---
+
+## Deployment
+
+### Frontend — Vercel
+
+The `frontend` folder is deployed as a Next.js application.
+
+Production API variable:
+
+```env
 NEXT_PUBLIC_API_URL=https://typeform-new.onrender.com
+```
 
-Render
+### Backend — Render
 
-The backend directory is deployed as a Python service.
+The `backend` folder is deployed as a Python service.
 
 Build command:
 
+```bash
 pip install -r requirements.txt
+```
 
 Start command:
 
+```bash
 python -m app.seed && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+```
 
-Design Decisions and Assumptions
+The backend health endpoint is:
 
-Authentication is simplified to one default creator, as allowed by
-the assignment.
+```text
+https://typeform-new.onrender.com/api/health
+```
 
-Public respondents do not need accounts.
+---
 
-SQLite is used for persistence.
+## Design Decisions and Assumptions
 
-Answers use a flexible stored representation so multiple question
-types can share the same answer model.
+### Authentication
 
-Advanced branching, integrations, team collaboration, payment, and
-file-upload functionality are simplified or represented as
-placeholders where applicable.
+Authentication is simplified to one default creator because the assignment allows a simplified creator setup.
 
-The respondent flow intentionally presents one question at a time to
-reproduce the conversational Typeform experience.
+Respondents do not need an account to fill a published form.
 
-The builder uses reusable question rendering for live preview.
+### Question Answers
 
-Validation and Persistence
+Answers are stored in a flexible format so different question types can use the same response system.
 
-Client-side validation gives immediate feedback, while the FastAPI
-backend validates submitted answers before persistence.
+### One Question at a Time
 
-Form changes, question changes, publishing state, responses, and answers
-are persisted through the API and SQLite database.
+The public form intentionally shows one question at a time instead of using a normal multi-field form. This is the main Typeform-style interaction.
 
-Assignment Notes
+### Live Preview
 
-The implementation focuses on the required builder, public respondent
-flow, form management, persistence, results, and Typeform-style UX.
-Optional functionality such as CSV export, dark mode, themes, and
-partial-response tracking is also included.
+The builder uses reusable question-rendering components so the preview stays close to the actual respondent experience.
 
-License
+### Placeholder Features
 
-This is an assignment/demo project and is not affiliated with or
-endorsed by Typeform.
+The assignment allows the following features to be simplified or shown as placeholders:
+
+* Advanced logic/branching
+* Integrations/webhooks
+* Team collaboration
+* Payment questions
+* File-upload questions
+* Full creator authentication
+
+---
+
+## Validation and Persistence
+
+Validation happens on both the frontend and backend.
+
+Examples include:
+
+* Required fields
+* Email format
+* Number input
+* Valid question data
+
+Form changes, question changes, publish status, responses, and answers are stored through the FastAPI API and SQLite database.
+
+---
+
+## Assignment Notes
+
+This project implements the required Typeform-style workflow:
+
+1. Create and manage forms
+2. Build questions using drag and drop
+3. Edit and reorder questions
+4. Preview the form
+5. Publish a public form
+6. Fill the form without login
+7. Move through questions one at a time
+8. Validate and save responses
+9. View response statistics
+10. View individual responses
+
+Additional functionality included:
+
+* CSV export
+* Dark mode
+* Custom themes
+* Partial-response tracking
+* Completion rate
+* Seeded sample forms and responses
+
+### Partial Responses
+
+A response can appear as `Partial` when a respondent starts filling a form but does not finish it.
+
+These entries are intentionally retained so the application can demonstrate incomplete-response tracking.
+
+---
+
+## Original Work
+
+This project was developed as an assignment implementation inspired by the Typeform user experience.
+
+It is not affiliated with or endorsed by Typeform.
+
+## License
+
+This is an assignment/demo project.
+
+```
+
+### One important thing
+
+After pasting it into GitHub, **don't change the README further** unless you notice an actual factual error. This version covers the assignment's required README items: setup, tech stack, architecture, database schema, API overview, and assumptions. :contentReference[oaicite:0]{index=0}
+
+Also, your current README correctly mentions **CSV export and partial-response tracking as additional functionality**, which matches what you've actually implemented. :contentReference[oaicite:1]{index=1}
+```
