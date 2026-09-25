@@ -35,10 +35,10 @@ export default function PublicFormFill() {
   useEffect(() => {
     if (stage !== "filling" || !form) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "Enter" && document.activeElement?.tagName !== "TEXTAREA") goNext();
-      if (e.key === "ArrowDown") goNext();
-      if (e.key === "ArrowUp") goPrev();
-    };
+    if (e.key === "ArrowDown") goNext();
+    if (e.key === "ArrowUp") goPrev();
+};
+  
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
     // eslint-disable-next-line react-hooks/exhaustive-deps
