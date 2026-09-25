@@ -165,8 +165,9 @@ Typeform-new/
 │   ├── lib/
 │   └── package.json
 │
-└── README.md
+└── README.md 
 
+```
 Database Schema
 
 The database contains five main entities:
