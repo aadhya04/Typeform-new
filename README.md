@@ -151,7 +151,7 @@ FastAPI Backend
        | SQLAlchemy
        v
 SQLite Database
-````
+```
 
 The frontend handles the user interface.
 
